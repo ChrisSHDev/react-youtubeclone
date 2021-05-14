@@ -5,18 +5,24 @@ const router = express.Router();
 const { auth } = require("../middleware/auth");
 const multer = require("multer");
 
-const globalRoot = __dirname;
-console.log(globalRoot);
+//const path = require("path");
+
+var path = require('path');
+
+var appRoot = path.resolve("./");
+
+console.log(appRoot);
+
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "/server/uploadfile/");
+    cb(null, appRoot + "/uploads");
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}_${file.originalname}`);
   },
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname);
-    if (ext !== '.mp4') {
+    if (ext !== '.pdf') {
       return cb(res.status(400).end('only mp4 is allowed'), false);
     }
     cb(null, true)
@@ -31,7 +37,7 @@ const upload = multer({ storage: storage }).single("file");
 
 router.post('/uploadfiles', (req, res) => {
 
-  VideoUploadPage(req, res, err => {
+  upload(req, res, err => {
     if (err) {
       return res.json({ success: false, err })
     }

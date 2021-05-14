@@ -69,7 +69,7 @@ function VideoUploadPage() {
       <Form onSubmit>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           {/* Drop Zone */}
-          <Dropzone onDrop={onDrop} multiple={false} maxSize={10000000}>
+          <Dropzone onDrop={onDrop} multiple={false} maxSize={80000000}>
             {({ getRootProps, getInputProps }) => (
               <div style={{ display: 'flex', width: '300px', height: '240px', border: '1px solid lightgray', alignItems: 'center', justifyContent: 'center' }} {...getRootProps()}>
                 <input {...getInputProps()} />
